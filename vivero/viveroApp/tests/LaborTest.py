@@ -2,6 +2,7 @@ import datetime
 from django.test import TestCase
 from ..models import Labor, Productor, Finca, Vivero
 from ..views.laborView import *
+from django.core.exceptions import ValidationError
 
 
 class LaborTestCase(TestCase):

@@ -62,6 +62,6 @@ class ProductorTestCase(TestCase):
             productor.id,
             nombre=actualizarNombre,
         )
-        productor = Productor.objects.get(documentoIdentidad='111')
+        productor.refresh_from_db()
         self.assertEqual(productor.nombre, actualizarNombre)
         self.assertEqual(productor.apellido, 'b')

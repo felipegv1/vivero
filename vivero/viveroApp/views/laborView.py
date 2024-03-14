@@ -1,1 +1,2 @@
-from django.test import TestCase
+from ..models.labor import Labor
+from ..models.productoControl import *

@@ -2,6 +2,7 @@ import datetime
 from django.test import TestCase
 from ..models import Plaga, Productor, Finca, Vivero, Labor
 from ..views.productoControlView import *
+from django.core.exceptions import ValidationError
 
 
 class PlagaTestCase(TestCase):
