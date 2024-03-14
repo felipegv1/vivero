@@ -3,13 +3,15 @@ from ..models.finca import Finca
 
 
 def registrarProductor(documentoIdentidad, nombre, apellido, telefono, correo):
-    productor = Productor.objects.create(
+    productor = Productor(
         documentoIdentidad=documentoIdentidad,
         nombre=nombre,
         apellido=apellido,
         telefono=telefono,
         correo=correo
     )
+    productor.full_clean()
+    productor.save()
     return productor
 
 

@@ -1,6 +1,7 @@
-from django.test import TestCase
+from django.test import TestCase  # unittest.TestCase
 from ..models import Productor
 from ..views.productorView import *
+from django.core.exceptions import ValidationError
 
 
 class ProductorTestCase(TestCase):
@@ -20,6 +21,13 @@ class ProductorTestCase(TestCase):
         self.assertEqual(productor.apellido, 'b')
         self.assertEqual(productor.telefono, '333')
         self.assertEqual(productor.correo, 'a.b@test.com')
+
+    # with self.assertRaises(SomeException):
+        # do_something()
+    def testCamposObligatorios(self):
+        with self.assertRaises(ValidationError):
+            registrarProductor("", "Test", "Apellido",
+                                           "123", "Test@test.com")  # No tiene documento de identidad
 
     def testCrearProductor(self):
         productor = registrarProductor("123456789", "Test", "Apellido",
