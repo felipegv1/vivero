@@ -17,10 +17,24 @@ def agregarFincaAProductor(productorId, numeroCatastro, municipioUbicacion):
     productor = Productor.objects.get(id=productorId)
     finca = Finca.objects.create(
         productor=productor,
-        numero_catastro=numeroCatastro,
-        municipio_ubicacion=municipioUbicacion
+        numeroCatastro=numeroCatastro,
+        municipioUbicacion=municipioUbicacion
     )
     return finca
+
+
+def actualizarProductor(id, nombre=None, apellido=None, telefono=None, correo=None):
+    productor = Productor.objects.get(id=id)
+    if nombre:
+        productor.nombre = nombre
+    if apellido:
+        productor.apellido = apellido
+    if telefono:
+        productor.telefono = telefono
+    if correo:
+        productor.correo = correo
+    productor.save()
+    return productor
 
 
 def getViverosProductor(productor_id):
