@@ -47,7 +47,7 @@ class ViveroTestCase(TestCase):
             # No tiene tipo de cultivo
             registrarVivero(1, 'v2', '')
 
-    def testRegistrarFinca(self):
+    def testRegistrarVivero(self):
         vivero = registrarVivero(1, 'v2', 'Cultivo2')
         self.assertEqual(vivero.finca, self.finca)
         self.assertEqual(vivero.codigo, 'v2')
@@ -59,7 +59,7 @@ class ViveroTestCase(TestCase):
         vivero.refresh_from_db()
         self.assertEqual(vivero.tipoCultivo, 'CultivoTest')
 
-    def test_lista_labores_vivero(self):
+    def testListaLaboresVivero(self):
         labores = listaLaboresVivero(self.vivero.id)
 
         # Cantidad de labores en setUp
