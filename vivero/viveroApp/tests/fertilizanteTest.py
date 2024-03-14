@@ -38,11 +38,26 @@ class FertilizanteTestCase(TestCase):
             fechaUltimaAplicacion=datetime.date.today() - datetime.timedelta(days=15)
         )
 
-    def test_fertilizante(self):
+    def testFertilizante(self):
         fertilizante = Fertilizante.objects.get(nombreProducto='F1')
         self.assertEqual(fertilizante.registroIca, '123')
         self.assertEqual(fertilizante.frecuenciaAplicacion, 45)
         self.assertEqual(fertilizante.valorProducto, 1500)
-        # Verifica que la fecha de última aplicación sea correcta teniendo en cuenta el timedelta
         expected_fecha = datetime.date.today() - datetime.timedelta(days=15)
         self.assertEqual(fertilizante.fechaUltimaAplicacion, expected_fecha)
+
+    def testCamposObligatoriosFertilizante(self):
+        with self.assertRaises(ValidationError):
+            # sin fecha de última aplicación
+            registrarFertilizante("F123", "Fertilizante B",
+                                  30, 200, None, self.labor.id)
+
+    def test_crear_fertilizante(self):
+        fertilizante = registrarFertilizante(
+            "F123", "Fertilizante B", 30, 200, datetime.date.today() - datetime.timedelta(days=15), self.labor.id)
+        self.assertEqual(fertilizante.registroIca, "F123")
+        self.assertEqual(fertilizante.nombreProducto, "Fertilizante B")
+        self.assertEqual(fertilizante.frecuenciaAplicacion, 30)
+        self.assertEqual(fertilizante.valorProducto, 200)
+        self.assertEqual(fertilizante.fechaUltimaAplicacion,
+                         datetime.date.today() - datetime.timedelta(days=15))

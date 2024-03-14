@@ -44,3 +44,14 @@ class PlagaTestCase(TestCase):
         self.assertEqual(plaga.frecuenciaAplicacion, 30)
         self.assertEqual(plaga.valorProducto, 2000)
         self.assertEqual(plaga.periodoCarencia, 7)
+
+    def testCamposObligatoriosPlaga(self):
+        with self.assertRaises(ValidationError):
+            # No numeri ica
+            registrarPlaga("", "Insecticida A", 15, 100, 3, self.labor.id)
+
+    def testCrearPlaga(self):
+        plaga = registrarPlaga("P123", "Insecticida",
+                               30, 200, 3, self.labor.id)
+        self.assertEqual(plaga.registroIca, "P123")
+        self.assertEqual(plaga.nombreProducto, "Insecticida")
